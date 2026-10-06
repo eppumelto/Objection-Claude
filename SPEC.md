@@ -24,6 +24,8 @@ scores and verdicts are deterministic code. LLMs only produce dialogue and the c
   `OLLAMA_MODEL` (default `qwen3.5:9b`). AI dialogue must **stream** to the UI token by token.
 - Every Ollama request sends `"think": false` (the default model is a reasoning model;
   thinking output must never reach the UI and would delay the first token).
+- Every Ollama request sets `options.num_ctx` from `OLLAMA_NUM_CTX` (default `16384`), so a full
+  trial transcript fits in context (Ollama's own default of 4096 silently truncates).
 - `AI_MOCK=1` → all AI calls return the deterministic output of §6 (used by the test suite).
 - `TURN_SECONDS` (default 90) → per-turn timer length.
 - Every element in §10 carries the exact `data-testid`.
