@@ -1,0 +1,68 @@
+{
+  "id": "midnight-bakery",
+  "title": "The Midnight Bakery Fire",
+  "charge": "Arson with intent to defraud an insurer",
+  "summary": "At about 2 AM on March 14, Marsh & Daughters Bakery burned down. Owner Leo Marsh had taken out a large fire insurance policy two months earlier. The prosecution claims he set the fire himself to collect the payout.",
+  "defendant": "Leo Marsh",
+  "witnesses": [
+    {
+      "id": "kale",
+      "name": "Inspector Ruth Kale",
+      "role": "Fire investigator",
+      "personality": "Confident, brisk, dislikes being questioned, wrote her report in a hurry because of a backlog.",
+      "testimony": [
+        { "id": "kale-1", "text": "The fire started at about 2:10 AM in the storage room." },
+        { "id": "kale-2", "text": "We found a gasoline can near the back door." },
+        { "id": "kale-3", "text": "There was no sign of any electrical fault." }
+      ],
+      "hiddenFacts": [
+        { "id": "kale-h1", "text": "She never examined the oven wall; she assumed the storage room was the origin because of the gasoline can.", "unlockedBy": "kale-1" },
+        { "id": "kale-h2", "text": "The wiring behind oven B was too badly burned to test, so 'no fault' really means 'not checked'.", "unlockedBy": "kale-3" }
+      ]
+    },
+    {
+      "id": "pike",
+      "name": "Dana Pike",
+      "role": "Electrician",
+      "personality": "Friendly but nervous, over-explains, gets defensive about paperwork.",
+      "testimony": [
+        { "id": "pike-1", "text": "I serviced the ovens on March 3rd, eleven days before the fire." },
+        { "id": "pike-2", "text": "Everything was in perfect working order." },
+        { "id": "pike-3", "text": "I never went back to the bakery after that visit." }
+      ],
+      "hiddenFacts": [
+        { "id": "pike-h1", "text": "Pike skipped the March service to save time and back-dated the invoice.", "unlockedBy": "pike-1" },
+        { "id": "pike-h2", "text": "Pike returned on March 13 to run a generator for a quick repair and left the gasoline can behind.", "unlockedBy": "pike-3" }
+      ]
+    },
+    {
+      "id": "ortiz",
+      "name": "Sam Ortiz",
+      "role": "Neighbour",
+      "personality": "Chatty, sure of himself, a bit of a gossip, refuses to wear his glasses.",
+      "testimony": [
+        { "id": "ortiz-1", "text": "I saw Leo's car parked at the bakery at 2 AM." },
+        { "id": "ortiz-2", "text": "The lights were on inside the bakery." },
+        { "id": "ortiz-3", "text": "I heard a loud bang just before the smoke started." }
+      ],
+      "hiddenFacts": [
+        { "id": "ortiz-h1", "text": "He was not wearing his glasses; the car was a similar grey hatchback belonging to a delivery driver.", "unlockedBy": "ortiz-1" }
+      ]
+    }
+  ],
+  "evidence": [
+    { "id": "e-policy", "name": "Insurance policy", "description": "Fire insurance policy for the bakery, signed January 10. Payout: 400,000." },
+    { "id": "e-receipt", "name": "Gasoline can receipt", "description": "Hardware store receipt for the gasoline can found at the scene, dated March 12, billed to 'Pike Electrical'." },
+    { "id": "e-log", "name": "Oven maintenance log", "description": "The bakery's maintenance log. Last service entry: January 12. No entry for March." },
+    { "id": "e-camera", "name": "Traffic camera still", "description": "Highway camera photo of Leo Marsh's licence plate, 20 km from the bakery, at 2:05 AM on March 14." },
+    { "id": "e-burn", "name": "Burn pattern photo", "description": "Close-up of the V-shaped burn pattern; its point is at the wall outlet behind oven B, not in the storage room." }
+  ],
+  "contradictions": [
+    { "statement": "kale-1", "evidence": "e-burn", "key": true },
+    { "statement": "kale-3", "evidence": "e-burn", "key": false },
+    { "statement": "pike-1", "evidence": "e-log", "key": true },
+    { "statement": "pike-3", "evidence": "e-receipt", "key": false },
+    { "statement": "ortiz-1", "evidence": "e-camera", "key": true }
+  ],
+  "verdictRule": { "minKeyContradictions": 2, "minScore": 50 }
+}
