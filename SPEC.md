@@ -1,4 +1,4 @@
-# OBJECTION! — AI Courtroom Simulator — Frozen Specification v1.1
+# OBJECTION! — AI Courtroom Simulator — Frozen Specification v1.2
 
 > Given **identically** to both AI tools, together with `cases/midnight-bakery.json`.
 > Do not change between builds. Any change = version bump, logged in both build logs.
@@ -14,14 +14,19 @@ scores and verdicts are deterministic code. LLMs only produce dialogue and the c
 
 ## 2. Technical constraints (same for both builds)
 - `npm install` then `npm run dev` → `http://localhost:3000`.
+- Runtime: Node.js 20 LTS or newer. Must run on **Windows 11** (PowerShell): no Unix-only
+  commands in npm scripts.
 - JavaScript/TypeScript; framework is the tool's choice (record what it picked).
+  Use current stable releases of all dependencies; no deprecated packages.
 - SQLite single file. `npm run reset-db` wipes, recreates and re-seeds it.
 - Cases are loaded from every `*.json` file in `/cases` at seed time (schema = §7).
 - AI via Ollama HTTP API: `OLLAMA_URL` (default `http://localhost:11434`),
-  `OLLAMA_MODEL` (default `qwen2.5:7b`). AI dialogue must **stream** to the UI token by token.
+  `OLLAMA_MODEL` (default `qwen3.5:9b`). AI dialogue must **stream** to the UI token by token.
+- Every Ollama request sends `"think": false` (the default model is a reasoning model;
+  thinking output must never reach the UI and would delay the first token).
 - `AI_MOCK=1` → all AI calls return the deterministic output of §6 (used by the test suite).
 - `TURN_SECONDS` (default 90) → per-turn timer length.
-- Every element in §8 carries the exact `data-testid`.
+- Every element in §10 carries the exact `data-testid`.
 
 ## 3. Agents (separate system prompts, separate context)
 | Agent | Knows | Must never |
